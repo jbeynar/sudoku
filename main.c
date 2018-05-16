@@ -4,9 +4,9 @@
 
 int main() {
     printf("Sudoku application\n");
-    readSudoku("sudoku04.txt");
-    printSudoku();
-    writeSudoku("sudoku04.txt");
+    sudokuArray sudoku = readSudoku("sudoku04.txt");
+    printSudoku(sudoku);
+    writeSudoku(sudoku, "sudoku04.txt");
     return 0;
 }
 

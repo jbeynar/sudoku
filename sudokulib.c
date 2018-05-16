@@ -8,7 +8,7 @@
 #define DIR_SUDOKU_INPUT "./../data/"
 #define DIR_SUDOKU_OUTPUT "./../solutions/"
 
-void readSudoku(char *sudokuFile) {
+sudokuArray readSudoku(char *sudokuFile) {
     char filename[128];
     sprintf(filename, "%s%s", DIR_SUDOKU_INPUT, sudokuFile);
     FILE *filePointer = fopen(filename, "r");
@@ -17,6 +17,13 @@ void readSudoku(char *sudokuFile) {
         printf("Unable to open file %s\n", filename);
     }
     int c, value, col, row, i = 0;
+
+    sudokuArray sudoku;
+    sudoku = (struct Field *) malloc(sizeof(struct Field *) * 9);
+    for (int j = 0; j < 9; j++) {
+        sudoku[j] = (struct Field *) malloc(sizeof(struct Field) * 9);
+    }
+
     while ((c = getc(filePointer)) != EOF) {
         if (c == 32) {
             continue;
@@ -39,9 +46,10 @@ void readSudoku(char *sudokuFile) {
         perror("Invalid input data length (file should has 81 space separated digits)");
     }
     fclose(filePointer);
+    return sudoku;
 }
 
-void writeSudoku(char *sudokuFile) {
+void writeSudoku(sudokuArray sudoku, char *sudokuFile) {
     char filename[128];
     sprintf(filename, "%s%s", DIR_SUDOKU_OUTPUT, sudokuFile);
     FILE *filePointer = fopen(filename, "w+");
@@ -65,7 +73,7 @@ void writeSudoku(char *sudokuFile) {
     fclose(filePointer);
 }
 
-void printSudoku() {
+void printSudoku(sudokuArray sudoku) {
     for (int row = 0; row < 9; row++) {
         if (row == 0) {
             printf("_____________________________________\n");

@@ -6,14 +6,14 @@
         int value;
         int valid;
         int possibility[10];
-    } sudoku[9][9];
+    };
 
-    // TODO sudoku is pass through a global namespace, consider passing via arguments
+    typedef struct Field ** sudokuArray;
 
-    void readSudoku(char *sudokuFile);
+    sudokuArray readSudoku(char *sudokuFile);
 
-    void writeSudoku(char *sudokuFile);
+    void writeSudoku(sudokuArray sudoku, char *sudokuFile);
 
-    void printSudoku();
+    void printSudoku(sudokuArray sudoku);
 
 #endif
