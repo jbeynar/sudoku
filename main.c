@@ -3,7 +3,7 @@
 #include "sudokulib.h"
 
 int main() {
-    printf("Sudoku application");
+    printf("Sudoku application\n");
     readSudoku("sudoku04.txt");
     printSudoku();
     writeSudoku("sudoku04.txt");

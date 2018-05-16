@@ -67,9 +67,23 @@ void writeSudoku(char *sudokuFile) {
 
 void printSudoku() {
     for (int row = 0; row < 9; row++) {
-        for (int col = 0; col < 9; col++) {
-            printf("%d ", sudoku[row][col].value);
+        if (row == 0) {
+            printf("_____________________________________\n");
         }
-        printf("\n");
+        for (int col = 0; col < 9; col++) {
+            if (col == 0) {
+                printf("|");
+            }
+            if (sudoku[row][col].value == 0) {
+                printf(" _ |");
+            } else {
+                printf(" %d |", sudoku[row][col].value);
+            }
+        }
+        if (row == 8) {
+            printf("\n-------------------------------------\n");
+        } else {
+            printf("\n|---|---|---|---|---|---|---|---|---|\n");
+        }
     }
 }
