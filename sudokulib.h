@@ -1,19 +1,23 @@
 #ifndef SUDOKU_SUDOKULIB_H_LOADED
 
-    #define SUDOKU_SUDOKULIB_H_LOADED
+#define SUDOKU_SUDOKULIB_H_LOADED
 
-    struct Field {
-        int value;
-        int valid;
-        int possibility[10];
-    };
+struct Field {
+    int value;
+    int valid;
+    int possibility[10];
+};
 
-    typedef struct Field ** sudokuArray;
+typedef struct Field **sudokuArray;
 
-    sudokuArray readSudoku(char *sudokuFile);
+sudokuArray readSudoku(char *sudokuFile);
 
-    void writeSudoku(sudokuArray sudoku, char *sudokuFile);
+void writeSudoku(sudokuArray sudoku, char *sudokuFile);
 
-    void printSudoku(sudokuArray sudoku);
+void printSudoku(sudokuArray sudoku);
+
+int checkSudokuConflicts(sudokuArray sudoku);
+
+void isSudokuSolvable(sudokuArray sudoku);
 
 #endif

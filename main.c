@@ -6,6 +6,7 @@ int main() {
     printf("Sudoku application\n");
     sudokuArray sudoku = readSudoku("sudoku04.txt");
     printSudoku(sudoku);
+    printf("is correct? %d", checkSudokuConflicts(sudoku));
     writeSudoku(sudoku, "sudoku04.txt");
     return 0;
 }

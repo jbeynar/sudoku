@@ -76,7 +76,7 @@ void writeSudoku(sudokuArray sudoku, char *sudokuFile) {
 void printSudoku(sudokuArray sudoku) {
     for (int row = 0; row < 9; row++) {
         if (row == 0) {
-            printf("_____________________________________\n");
+            printf("\n_____________________________________\n");
         }
         for (int col = 0; col < 9; col++) {
             if (col == 0) {
@@ -94,4 +94,52 @@ void printSudoku(sudokuArray sudoku) {
             printf("\n|---|---|---|---|---|---|---|---|---|\n");
         }
     }
+}
+
+int checkSudokuConflicts(sudokuArray sudoku) {
+    int conflictsCount = 0;
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            int currentValue = sudoku[row][col].value;
+            int result = 0;
+            if (currentValue == 0) {
+                continue;
+            }
+            int i = 9;
+            while (i--) {
+                // Horizontal check
+                if (col != i) {
+                    if (currentValue == sudoku[row][i].value) {
+                        result++;
+                    }
+                }
+
+                // Vertical check
+                if (row != i) {
+                    if (currentValue == sudoku[i][col].value) {
+                        result++;
+                    }
+                }
+
+                // Local check
+                int rowOffset = (row / 3) * 3;
+                int colOffset = (col / 3) * 3;
+                int localRow = rowOffset + (i / 3);
+                int localCol = colOffset + (i % 3);
+
+                if (row == localRow && col == localCol) {
+                    continue;
+                }
+                if (currentValue == sudoku[localRow][localCol].value) {
+                    result++;
+                }
+            }
+            conflictsCount += result;
+        }
+    }
+    return conflictsCount > 1;
+}
+
+void isSudokuSolvable(sudokuArray sudoku) {
+
 }
