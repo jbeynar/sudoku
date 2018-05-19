@@ -20,4 +20,6 @@ int checkSudokuConflicts(sudokuArray sudoku);
 
 void isSudokuSolvable(sudokuArray sudoku);
 
+void generatePossibilites(sudokuArray S);
+
 #endif

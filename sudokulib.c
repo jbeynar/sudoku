@@ -140,6 +140,43 @@ int checkSudokuConflicts(sudokuArray sudoku) {
     return conflictsCount > 1;
 }
 
-void isSudokuSolvable(sudokuArray sudoku) {
+//void isSudokuSolvable(sudokuArray sudoku) {
+//
+//}
+
+void generatePossibilites(sudokuArray S) {
+
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            if (row != 0 || col != 0) {
+                continue;
+            }
+            int currentValue = S[row][col].value;
+            int i = 9;
+            int j = 10;
+            while (j--) S[row][col].possibility[j] = 1;
+            while (i--) {
+                // Horizontal check
+                if (S[row][i].value) {
+                    S[row][col].possibility[S[row][i].value] = 0;
+                }
+
+                // Vertical check
+                if (S[i][col].value) {
+                    S[row][col].possibility[S[i][col].value] = 0;
+                }
+
+                // Local check
+                int rowOffset = (row / 3) * 3;
+                int colOffset = (col / 3) * 3;
+                int localRow = rowOffset + (i / 3);
+                int localCol = colOffset + (i % 3);
+                if (S[localRow][localCol].value) {
+                    S[row][col].possibility[S[localRow][localCol].value] = 0;
+                }
+            }
+        }
+    }
+
 
 }

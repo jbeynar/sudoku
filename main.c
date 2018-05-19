@@ -6,8 +6,9 @@ int main() {
     printf("Sudoku application\n");
     sudokuArray sudoku = readSudoku("sudoku04.txt");
     printSudoku(sudoku);
-    printf("is correct? %d", checkSudokuConflicts(sudoku));
+    printf("is correct? %d\n\n", checkSudokuConflicts(sudoku));
     writeSudoku(sudoku, "sudoku04.txt");
+    generatePossibilites(sudoku);
     return 0;
 }
 
