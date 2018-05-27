@@ -145,7 +145,6 @@ int checkSudokuConflicts(sudokuArray sudoku) {
 //}
 
 void generatePossibilites(sudokuArray S) {
-
     for (int row = 0; row < 9; row++) {
         for (int col = 0; col < 9; col++) {
             if (S[row][col].value > 0) {
@@ -177,7 +176,6 @@ void generatePossibilites(sudokuArray S) {
             }
         }
     }
-
 }
 
 void printPossibilities(int possibility[10]) {
@@ -190,15 +188,44 @@ void printPossibilities(int possibility[10]) {
     }
 }
 
+int countPossibilities(int possibility[10]) {
+    int count = 0;
+    for (int i = 1; i < 10; i++) {
+        if (possibility[i] == 0) {
+            continue;
+        } else {
+            count++;
+        }
+    }
+    return count;
+}
+
+int getFirstPossibility(int possibility[10]) {
+    for (int i = 1; i < 10; i++) {
+        if (possibility[i] == 0) {
+            continue;
+        } else {
+            return i;
+        }
+    }
+    return 0;
+}
+
+
 void resolveSudoku(sudokuArray S) {
-    for (int row = 0; row < 9; row++) {
-        for (int col = 0; col < 9; col++) {
-            if (S[row][col].value > 0) {
-                continue;
+    generatePossibilites(S);
+    for (int p = 1; p < 9; p++) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                if (S[row][col].value > 0) {
+                    continue;
+                }
+                if (countPossibilities(S[row][col].possibility) <= p) {
+                    int value = getFirstPossibility(S[row][col].possibility);
+                    S[row][col].value = value;
+                    generatePossibilites(S);
+                }
             }
-            printf("[%d][%d]\n", row, col);
-            printPossibilities(S[row][col].possibility);
-            printf("\n\n");
         }
     }
 }
