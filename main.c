@@ -4,19 +4,12 @@
 
 int main() {
     printf("Sudoku application\n");
-    sudokuArray sudoku = readSudoku("sudoku04.txt");
+    char sudokuFile[] = "sudoku04.txt";
+    sudokuArray sudoku = readSudoku(sudokuFile);
     printSudoku(sudoku);
-    printf("is correct? %d\n\n", checkSudokuConflicts(sudoku));
-    writeSudoku(sudoku, "sudoku01.txt");
+    printf("\nResolved sudoku");
     resolveSudoku(sudoku);
     printSudoku(sudoku);
+    writeSudoku(sudoku, sudokuFile);
     return 0;
 }
-
-//void sudokuWalk(void * callbackFunction()){
-//    for (int row = 0; row < 9; row++) {
-//        for (int col = 0; col < 9; col++) {
-//            callbackFunction(sudoku[row][col]);
-//        }
-//    }
-//}

@@ -18,9 +18,15 @@ void printSudoku(sudokuArray sudoku);
 
 int checkSudokuConflicts(sudokuArray sudoku);
 
-void isSudokuSolvable(sudokuArray sudoku);
+int isSudokuSolvable(sudokuArray S);
 
 void generatePossibilites(sudokuArray S);
+
+void printPossibilities(int possibility[10]);
+
+int countPossibilities(int possibility[10]);
+
+int getBestPossibility(sudokuArray S, int R, int C);
 
 void resolveSudoku(sudokuArray S);
 

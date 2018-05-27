@@ -140,9 +140,26 @@ int checkSudokuConflicts(sudokuArray sudoku) {
     return conflictsCount > 1;
 }
 
-//void isSudokuSolvable(sudokuArray sudoku) {
-//
-//}
+int isSudokuSolvable(sudokuArray S) {
+    generatePossibilites(S);
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            int possibilities = 0;
+            if (S[row][col].value > 0) {
+                continue;
+            }
+            for (int p = 1; p < 10; p++) {
+                if (S[row][col].possibility[p] == 1) {
+                    possibilities++;
+                }
+            }
+            if (possibilities == 0) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
 
 void generatePossibilites(sudokuArray S) {
     for (int row = 0; row < 9; row++) {
@@ -200,17 +217,31 @@ int countPossibilities(int possibility[10]) {
     return count;
 }
 
-int getFirstPossibility(int possibility[10]) {
-    for (int i = 1; i < 10; i++) {
-        if (possibility[i] == 0) {
-            continue;
-        } else {
-            return i;
+int getBestPossibility(sudokuArray S, int R, int C) {
+    int counts[10];
+    int k = 10;
+    while (k--) { counts[k] = 0; }
+    for (int col = 0; col < 9; col++) {
+        for (int i = 1; i < 10; i++) {
+            if (S[R][col].possibility[i] == 1) {
+                counts[i]++;
+            }
         }
     }
-    return 0;
+    int minCount = 9;
+    int selectedValue = 0;
+    for (int i = 1; i < 10; i++) {
+        if (S[R][C].possibility[i] == 0) {
+            continue;
+        } else {
+            if (counts[i] < minCount) {
+                minCount = counts[i];
+                selectedValue = i;
+            }
+        }
+    }
+    return selectedValue;
 }
-
 
 void resolveSudoku(sudokuArray S) {
     generatePossibilites(S);
@@ -221,7 +252,7 @@ void resolveSudoku(sudokuArray S) {
                     continue;
                 }
                 if (countPossibilities(S[row][col].possibility) <= p) {
-                    int value = getFirstPossibility(S[row][col].possibility);
+                    int value = getBestPossibility(S, row, col);
                     S[row][col].value = value;
                     generatePossibilites(S);
                 }
