@@ -9,6 +9,7 @@ int main() {
     printf("is correct? %d\n\n", checkSudokuConflicts(sudoku));
     writeSudoku(sudoku, "sudoku04.txt");
     generatePossibilites(sudoku);
+    resolveSudoku(sudoku);
     return 0;
 }
 

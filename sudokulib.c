@@ -148,7 +148,7 @@ void generatePossibilites(sudokuArray S) {
 
     for (int row = 0; row < 9; row++) {
         for (int col = 0; col < 9; col++) {
-            if (row != 0 || col != 0) {
+            if (S[row][col].value > 0) {
                 continue;
             }
             int currentValue = S[row][col].value;
@@ -157,7 +157,7 @@ void generatePossibilites(sudokuArray S) {
             while (j--) S[row][col].possibility[j] = 1;
             while (i--) {
                 // Horizontal check
-                if (S[row][i].value) {
+                if (S[row][i].value > 0) {
                     S[row][col].possibility[S[row][i].value] = 0;
                 }
 
@@ -178,5 +178,27 @@ void generatePossibilites(sudokuArray S) {
         }
     }
 
+}
 
+void printPossibilities(int possibility[10]) {
+    for (int i = 1; i < 10; i++) {
+        if (possibility[i] == 0) {
+            continue;
+        } else {
+            printf("%d ", i);
+        }
+    }
+}
+
+void resolveSudoku(sudokuArray S) {
+    for (int row = 0; row < 9; row++) {
+        for (int col = 0; col < 9; col++) {
+            if (S[row][col].value > 0) {
+                continue;
+            }
+            printf("[%d][%d]\n", row, col);
+            printPossibilities(S[row][col].possibility);
+            printf("\n\n");
+        }
+    }
 }

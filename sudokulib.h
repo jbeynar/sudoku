@@ -22,4 +22,6 @@ void isSudokuSolvable(sudokuArray sudoku);
 
 void generatePossibilites(sudokuArray S);
 
+void resolveSudoku(sudokuArray S);
+
 #endif
